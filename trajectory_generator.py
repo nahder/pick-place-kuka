@@ -14,12 +14,12 @@ def trajectory_generator(Tse_initial, Tsc_initial, Tsc_final, Tce_grasp, Tce_sta
     Generates a trajectory list by calculating intermediary configurations and defining segments.
     
     Parameters:
-    - Tse_initial: The initial configuration of the end-effector. 
-    - Tsc_initial: The initial configuration of the cube
-    - Tsc_final: The final configuration of the cube.
-    - Tce_grasp: The configuration of the end-effector when it is grasping the cube.
-    - Tce_standoff: The configuration of the end-effector when it is in the standoff position from the cube.
-    - k: A scaling factor for the trajectory generation.
+    - Tse_initial: The initial configuration of the end-effector w.r.t the reference trajectory. 
+    - Tsc_initial: The initial configuration of the cube w.r.t the reference trajectory.
+    - Tsc_final: The final configuration of the cube w.r.t the reference trajectory.
+    - Tce_grasp: The end-effector's configuration w.r.t the cube when grasping it.
+    - Tce_standoff: The end-effector's standoff configuration w.r.t the cube.
+    - k: The number of trajectory reference configurations per .01 seconds.
 
     Returns:
     - traj_list: A list of trajectory reference configurations, each represented as a flattened 
@@ -53,11 +53,10 @@ def trajectory_generator(Tse_initial, Tsc_initial, Tsc_final, Tce_grasp, Tce_sta
     return traj_list
 
 
-
 def flatten_configs(configs, gripper_state):
     """
-    Take a list of configurations and flattens each to 1D arrays.
-    The gripper state is added to each configuration, and the
+    Flatten list of configurations into 12-vector configurations.
+    The gripper state is then added to each configuration, and the
     flattened configurations are returned as a list.
     
     Parameters:
@@ -81,7 +80,7 @@ def flatten_configs(configs, gripper_state):
 
 def traj_list_to_csv(traj_list):
     """
-    Writes a trajectory list to a CSV file.
+    Write a trajectory list to a CSV file.
 
     Parameters:
     - traj_list: A list of trajectory reference configurations.
@@ -117,7 +116,8 @@ def main():
                              [-0.71,0,-0.71,0.35],
                              [0,0,0,1]])
     
-    traj_list = trajectory_generator(Tse_initial, Tsc_initial, Tsc_goal, Tce_grasp, Tce_standoff, 1)
+    traj_list = trajectory_generator(Tse_initial, Tsc_initial, 
+                                     Tsc_goal, Tce_grasp, Tce_standoff, 1)
     traj_list_to_csv(traj_list)
     
 

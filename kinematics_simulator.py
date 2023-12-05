@@ -1,24 +1,5 @@
-#inputs:
-# A 12-vector representing the current configuration of the robot 
-# (3 variables for the chassis configuration, 5 variables for the arm configuration, 
-#  and 4 variables for the wheel angles).
-# A 9-vector of controls indicating the wheel speeds u {\displaystyle u} (4 variables) and the arm joint speeds θ ˙ {\displaystyle {\dot {\theta }}} (5 variables).
-# A timestep Δ t {\displaystyle \Delta t}.
-# A positive real value indicating the maximum angular speed of the arm joints and the wheels. For example, if this value is 12.3, 
-# the angular speed of the wheels and arm joints is limited to the range [-12.3 radians/s, 12.3 radians/s]. 
-import modern_robotics as mr
+
 import numpy as np 
-
-# Any speed in the 9-vector of controls that is outside this range will be set to the nearest boundary of the range. 
-# If you don't want speed limits, just use a very large number. If you prefer, your function can accept separate speed limits for the wheels and arm joints.
-
-# Output: A 12-vector representing the configuration of the robot time Δ t {\displaystyle \Delta t} later.
-
-# The function NextState is based on a simple first-order Euler step, i.e.,
-
-#     new arm joint angles = (old arm joint angles) + (joint speeds) * Δ t {\displaystyle \Delta t}
-#     new wheel angles = (old wheel angles) + (wheel lsspeeds) * Δ t {\displaystyle \Delta t}
-
 def nextState(currentState, controls, speedLimit, dt):
     
     chassis_config = np.array(currentState[0:3]) #current chassis configuration (phi, x, y)
@@ -47,7 +28,7 @@ def nextState(currentState, controls, speedLimit, dt):
                         [1,1,1,1],
                         [-1,1,-1,1]])
     
-    body_velocity = F @ wheel_speeds
+    body_velocity = F @ wheel_speeds*dt
     
     w_bz = body_velocity[0]
     v_bx = body_velocity[1]
@@ -90,6 +71,8 @@ def main():
         next_config = nextState(current_config,vel,dt,max_vel)
         current_config = next_config
         configs_list.append(next_config)
+        
+    print(configs_list[-1])
                 
     np.savetxt('configs.csv', configs_list, delimiter=',')
         

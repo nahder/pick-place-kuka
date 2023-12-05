@@ -21,7 +21,7 @@ import numpy as np
 
 def nextState(currentState, controls, speedLimit, dt):
     
-    chassis_config = np.array(currentState[0:3]) #current chassis configuration (the x, y, and θ of the robot's center point)
+    chassis_config = np.array(currentState[0:3]) #current chassis configuration (phi, x, y)
     arm_config = np.array(currentState[3:8]) #current arm configuration (the angles of the 5 arm joints)
     wheel_angles = np.array(currentState[8:12]) #current wheel angles (the angles of the 4 wheels)
     
@@ -38,11 +38,11 @@ def nextState(currentState, controls, speedLimit, dt):
     # calculate new wheel angles 
     new_wheel_angles = wheel_angles + wheel_speeds * dt
     
+    #F = pseudo inverse of H(0), where H(0) is the configuration matrix of the chassis
+    
     r = 0.0475
     w = 0.3/2
     l = 0.47/2
-    
-    #F = pseudo inverse of H(0), where H(0) is the configuration matrix of the chassis
     F = r/4 * np.array([[-1/(l+w), 1/(l+w), 1/(l+w), -1/(l+w)],
                         [1,1,1,1],
                         [-1,1,-1,1]])
@@ -69,13 +69,12 @@ def nextState(currentState, controls, speedLimit, dt):
     
     # calculate new chassis config from odometry 
     chassis_next = chassis_config + delta_qs
-    
-    next_state = np.concatenate((chassis_next, new_arm_config, new_wheel_angles), axis=None)
+        
+    next_state = np.hstack((chassis_next, new_arm_config, new_wheel_angles))
     
     return next_state
     
     
-
 def main():
     current_config = np.array([0,0,0,0,0,0,0,0,0,0,0,0])
     # vel = np.array([10, 10, 10, 10, 0, 0, 0, 0, 0])
@@ -91,7 +90,7 @@ def main():
         next_config = nextState(current_config,vel,dt,max_vel)
         current_config = next_config
         configs_list.append(next_config)
-        
+                
     np.savetxt('configs.csv', configs_list, delimiter=',')
         
         

@@ -8,42 +8,6 @@ import numpy as np
 from modern_robotics import ScrewTrajectory, CartesianTrajectory
 import csv
 
-def main(): 
-    """
-    Cut and pasteable code for Milestone 2. Defines the initial and goal configurations of the cube
-    and end-effector, and calls the trajectory_generator function to generate a trajectory list and
-    write it to a CSV file.
-    """
-    Tsc_initial = np.array([[1,0,0,1], 
-                            [0,1,0,0], 
-                            [0,0,1,0.025], 
-                            [0,0,0,1]]) 
-    
-    Tsc_goal = np.array([[0,1,0,0], 
-                         [-1,0,0,-1], 
-                         [0,0,1,0.025], 
-                         [0,0,0,1]])
-
-    Tse_initial = np.array([[0,0,1,0],
-                            [0,1,0,0],
-                            [-1,0,0,0.6],
-                            [0,0,0,1]])
-    
-    Tce_grasp = np.array([[-0.71,0,0.71,0],
-                          [0,1,0,0],
-                          [-0.71,0,-0.71,0],
-                          [0,0,0,1]])
-    
-    Tce_standoff = np.array([[-0.71,0,0.71,0],
-                             [0,1,0,0],
-                             [-0.71,0,-0.71,0.35],
-                             [0,0,0,1]])
-    
-    traj_list = trajectory_generator(Tse_initial, Tsc_initial, 
-                                     Tsc_goal, Tce_grasp, Tce_standoff, 1)
-    traj_list_to_csv(traj_list)
-    
-
 def trajectory_generator(Tse_initial, Tsc_initial, Tsc_final, Tce_grasp, Tce_standoff, k):
     """
     Generates a trajectory list by calculating intermediary configurations and defining segments.
@@ -60,6 +24,7 @@ def trajectory_generator(Tse_initial, Tsc_initial, Tsc_final, Tce_grasp, Tce_sta
     - traj_list: A list of trajectory reference configurations, each represented as a flattened 
     configuration matrix.
     """
+
     traj_list = []
     Tse_standoff_initial = Tsc_initial @ Tce_standoff
     Tse_grasp_initial = Tsc_initial @ Tce_grasp
@@ -123,6 +88,37 @@ def traj_list_to_csv(traj_list):
     with open('traj_list.csv', 'w', newline='') as csvfile:
         writer = csv.writer(csvfile)
         writer.writerows(traj_list)
+        
+def main(): 
+    Tsc_initial = np.array([[1,0,0,1], 
+                            [0,1,0,0], 
+                            [0,0,1,0.025], 
+                            [0,0,0,1]]) 
+    
+    Tsc_goal = np.array([[0,1,0,0], 
+                         [-1,0,0,-1], 
+                         [0,0,1,0.025], 
+                         [0,0,0,1]])
+
+    Tse_initial = np.array([[0,0,1,0],
+                            [0,1,0,0],
+                            [-1,0,0,0.6],
+                            [0,0,0,1]])
+    
+    Tce_grasp = np.array([[-0.71,0,0.71,0],
+                          [0,1,0,0],
+                          [-0.71,0,-0.71,0],
+                          [0,0,0,1]])
+    
+    Tce_standoff = np.array([[-0.71,0,0.71,0],
+                             [0,1,0,0],
+                             [-0.71,0,-0.71,0.35],
+                             [0,0,0,1]])
+    
+    traj_list = trajectory_generator(Tse_initial, Tsc_initial, 
+                                     Tsc_goal, Tce_grasp, Tce_standoff, 1)
+    traj_list_to_csv(traj_list)
+        
     
 
 if __name__ == "__main__": 

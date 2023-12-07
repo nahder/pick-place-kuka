@@ -157,9 +157,8 @@ def main():
     print("Storing the configurations and errors in CSV files...")
     plt.legend()
     plt.show()
-    # np.savetxt("../results/newTask/configs_list.csv",configs_list,delimiter=",")
-    # np.savetxt("../results/newTask/err_list.csv",err_list,delimiter=",")
-    # plt.savefig(f'Kp={kp_val}_Ki={ki_val}.png')
+    np.savetxt("../results/newTest/configs_list.csv",configs_list,delimiter=",")
+    np.savetxt("../results/newTest/err_list.csv",err_list,delimiter=",")
     print("Program complete.")
 
 if __name__ == "__main__":

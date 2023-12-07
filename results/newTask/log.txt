@@ -1,0 +1,13 @@
+>>> python3 kuka_sim.py
+Initializing system parameters...
+Generating trajectory based on initial and goal configurations...
+Generating command twist for time step 0
+Generating command twist for time step 500
+Generating command twist for time step 1000
+Generating command twist for time step 1500
+Generating command twist for time step 2000
+Generating command twist for time step 2500
+Generating command twist for time step 3000
+Generating command twist for time step 3500
+Generating a plot of the control error...
+Program complete.

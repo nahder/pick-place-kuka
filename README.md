@@ -4,7 +4,7 @@ This project has several components which come together to enable a KUKA mobile 
 The <code>NextState</code> function, implemented in <a href="https://github.com/nahder/pick-place-kuka/blob/main/code/state_transition.py" target="_blank"><code>state_transition.py</code></a>, takes the following inputs:
 
 <div align="center">
-    <img src="/assets/kuka_error.png" alt="Results" width="60%" />
+    <img src="/assets/kuka.gif" alt="Results" width="60%" />
     <br>
 </div>
 

@@ -82,7 +82,7 @@ and outputs a list of flattened reference trajectories for inputting into the Co
 The controller, implemented in <a href="https://github.com/nahder/pick-place-kuka/blob/main/controller.py" target="_blank"><code>controller.py</code></a>, is based on a feedforward plus feedback control law.
 
 <div align="center">
-    <img src="/assets/control_law.png" alt="Control Law Equation" width="100%" />
+    <img src="/assets/control_law.png" alt="Control Law Equation" width="60%" />
     <br>
 </div>
 

@@ -1,12 +1,11 @@
 This project has several components which come together to enable a KUKA mobile manipulator to pick up and place a cube within the CoppeliaSim environment.
 
-
-The <code>NextState</code> function, implemented in <a href="https://github.com/nahder/pick-place-kuka/blob/main/state_transition.py" target="_blank"><code>state_transition.py</code></a>, takes the following inputs:
-
 <div align="center">
     <img src="/assets/kuka.gif" alt="Results" width="60%" />
     <br>
 </div>
+
+The <code>NextState</code> function, implemented in <a href="https://github.com/nahder/pick-place-kuka/blob/main/state_transition.py" target="_blank"><code>state_transition.py</code></a>, takes the following inputs:
 
 <div align="center">
     <table style="border-collapse: separate; width: 50%; text-align: left; border-spacing: 0;">
